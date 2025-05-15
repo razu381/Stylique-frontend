@@ -115,8 +115,8 @@ function AllProducts() {
             ${priceFilter[0]} - ${priceFilter[1]}
           </p>
           <RangeSlider
-            min={priceFilter[0]}
-            max={priceFilter[1]}
+            min={filterstats.min}
+            max={filterstats.max}
             defaultValue={[priceFilter[0], priceFilter[1]]}
             onInput={setPriceFilter}
           />
