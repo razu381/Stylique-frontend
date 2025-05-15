@@ -15,6 +15,14 @@ function CartProvider({ children }) {
   });
   let [cartTotal, setcartTotal] = useState(0);
   let [numOfItems, setNumOfItems] = useState(0);
+  let [idempotencyKey, setIdempotencyKey] = useState(() => {
+    const existingKey = sessionStorage.getItem("idempotencyKey");
+    if (existingKey) return existingKey;
+
+    const newKey = crypto.randomUUID();
+    sessionStorage.setItem("idempotencyKey", newKey);
+    return newKey;
+  });
 
   useEffect(() => {
     sessionStorage.setItem("cartDetails", JSON.stringify(cartItems));
@@ -50,6 +58,7 @@ function CartProvider({ children }) {
 
   function clearCart() {
     setCartItems([]);
+    resetIdempotencyKey();
   }
 
   function updateCart(productId, amount) {
@@ -62,6 +71,12 @@ function CartProvider({ children }) {
     );
   }
 
+  function resetIdempotencyKey() {
+    const newKey = crypto.randomUUID();
+    setIdempotencyKey(newKey);
+    sessionStorage.setItem("idempotencyKey", newKey);
+  }
+
   let cartDetails = {
     cartItems,
     addToCart,
@@ -70,6 +85,8 @@ function CartProvider({ children }) {
     updateCart,
     cartTotal,
     numOfItems,
+    idempotencyKey,
+    resetIdempotencyKey,
   };
 
   return (

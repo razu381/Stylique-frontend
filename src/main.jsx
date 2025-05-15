@@ -25,6 +25,8 @@ import AuthProvider from "./Auth/AuthProvider";
 import CartProvider from "./pages/cart/CartProvider";
 import Cart from "./pages/cart/Cart";
 import Checkout from "./pages/checkout/Checkout";
+import UserDashboard from "./pages/user/UserDashboard";
+import AllProducts from "./pages/All products/AllProducts";
 
 const queryClient = new QueryClient();
 
@@ -44,20 +46,28 @@ let router = createBrowserRouter([
           fetch(`http://localhost:3000/products/${params.id}`),
       },
       {
+        path: "/all-products",
+        element: <AllProducts />,
+      },
+      {
         path: "/signup",
         element: <Signup />,
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "cart",
+        path: "/cart",
         element: <Cart />,
       },
       {
-        path: "checkout",
+        path: "/checkout",
         element: <Checkout />,
+      },
+      {
+        path: "/user",
+        element: <UserDashboard />,
       },
     ],
   },

@@ -9,7 +9,14 @@ h3 {
 }
 
 p,
-li {
+li,
+a,
+h4,
+h5,
+h6,
+button,
+input,
+table {
   font-family: "Manrope", sans-serif;
 }
 

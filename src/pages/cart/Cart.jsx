@@ -61,6 +61,12 @@ function Cart() {
                 </tbody>
               </table>
             </div>
+            <button
+              onClick={clearCart}
+              className=" bg-black text-white text-center py-2 px-5 mt-5 rounded-[20px]"
+            >
+              Clear Cart
+            </button>
           </div>
           <div className="col-span-3 lg:col-span-1 border border-black/10 py-10 px-5 rounded-[20px] mt-5">
             <OrderSummury className="py-5" />

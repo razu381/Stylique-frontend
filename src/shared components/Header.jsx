@@ -1,18 +1,28 @@
 import React, { useContext } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
-import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { CartContext } from "../pages/cart/CartProvider";
+import { HashLink } from "react-router-hash-link";
 
 function Header() {
-  let { cartItems, cartTotal, numOfItems } = useContext(CartContext);
+  let { cartItems, cartTotal, clearCart, numOfItems } = useContext(CartContext);
   let li = (
     <>
-      <li className="font-medium">Home</li>
-      <li className="font-medium">Men</li>
-      <li className="font-medium">Women</li>
-      <li className="font-medium">Popular</li>
-      <li className="font-medium">All Prouducts</li>
+      <li className="font-medium">
+        <Link to="/">Home</Link>
+      </li>
+      <li className="font-medium">
+        <HashLink to="/#men">Men</HashLink>
+      </li>
+      <li className="font-medium">
+        <HashLink to="/#women">Women</HashLink>
+      </li>
+      <li className="font-medium">
+        <HashLink to="/#popular">Popular</HashLink>
+      </li>
+      <li className="font-medium">
+        <Link to="/all-products">All Prouducts</Link>
+      </li>
     </>
   );
   return (
@@ -88,15 +98,23 @@ function Header() {
               <div className="card-actions ">
                 <Link
                   to="/cart"
-                  className="btn font-body bg-black rounded-full text-white btn-block"
+                  className="py-1 px-5 text-center bg-black rounded-[20px] text-white btn-block"
                 >
                   View cart
                 </Link>
+                <button
+                  onClick={clearCart}
+                  className="py-1 px-5 text-center border border-black rounded-[20px] btn-block"
+                >
+                  Clear cart
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <FaRegUserCircle size={25} />
+        <Link to="/user">
+          <FaRegUserCircle size={25} />
+        </Link>
       </div>
     </div>
   );

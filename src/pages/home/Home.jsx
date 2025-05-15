@@ -10,9 +10,16 @@ function Home() {
       <Hero />
       <Brands />
       <div className="max-w-full px-5 lg:max-w-[1140px] lg:mx-auto">
-        <ProductGrid title={"Popular Products"} category={"popular"} />
-        <ProductGrid title={"For Men"} category={"men"} />
-        <ProductGrid title={"For Women"} category={"women"} />
+        <div id="popular">
+          <ProductGrid title={"Popular Products"} category={"popular"} />
+        </div>
+        <div id="men">
+          <ProductGrid title={"For Men"} category={"men"} />
+        </div>
+        <div id="women">
+          <ProductGrid title={"For Women"} category={"women"} />
+        </div>
+
         <Category />
       </div>
     </>
