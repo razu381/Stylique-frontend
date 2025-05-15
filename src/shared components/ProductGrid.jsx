@@ -12,7 +12,7 @@ function ProductGrid({ title, category }) {
     isRefetching,
     data: products = [],
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["categoryProducts", category, title],
     queryFn: async () => {
       let result = await axios.get(
         `https://stylique-backend.vercel.app/products/category/${category}`
