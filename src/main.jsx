@@ -67,7 +67,7 @@ let router = createBrowserRouter([
         element: <Checkout />,
       },
       {
-        path: "/user",
+        path: "/my-account",
         element: (
           <PrivateRoute>
             <UserDashboard />

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
+import { useQuery } from "@tanstack/react-query";
+import Spinner from "./Spinner";
 
 function ProductGrid({ title, category }) {
   const {
@@ -10,7 +12,7 @@ function ProductGrid({ title, category }) {
     isRefetching,
     data: products = [],
   } = useQuery({
-    queryKey: ["allorders", categoryFilter, ratingFilter],
+    queryKey: ["products"],
     queryFn: async () => {
       let result = await axios.get(
         `https://stylique-backend.vercel.app/products/category/${category}`
@@ -26,7 +28,7 @@ function ProductGrid({ title, category }) {
         {title}
       </h2>
 
-      {isLoading || (isRefetching && <Spinner />)}
+      {(isLoading || isRefetching) && <Spinner />}
       {error && (
         <p className="text-red-600 text-center">
           `There's been an error loading products. ${error}`
