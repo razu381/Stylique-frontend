@@ -27,6 +27,7 @@ import Cart from "./pages/cart/Cart";
 import Checkout from "./pages/checkout/Checkout";
 import UserDashboard from "./pages/user/UserDashboard";
 import AllProducts from "./pages/All products/AllProducts";
+import PrivateRoute from "./Auth/PrivateRoute";
 
 const queryClient = new QueryClient();
 
@@ -67,7 +68,11 @@ let router = createBrowserRouter([
       },
       {
         path: "/user",
-        element: <UserDashboard />,
+        element: (
+          <PrivateRoute>
+            <UserDashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },
