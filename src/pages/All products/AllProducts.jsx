@@ -40,7 +40,7 @@ function AllProducts() {
     queryKey: ["allorders", categoryFilter, ratingFilter],
     queryFn: async () => {
       let result = await axios.get(
-        `http://localhost:3000/products?category=${categoryFilter}&price=${priceFilter}`
+        `https://stylique-backend.vercel.app//products?category=${categoryFilter}&price=${priceFilter}`
       );
 
       return result.data;
@@ -49,7 +49,9 @@ function AllProducts() {
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      let result = await axios.get(`http://localhost:3000/categories`);
+      let result = await axios.get(
+        `https://stylique-backend.vercel.app//categories`
+      );
 
       return result.data;
     },
@@ -59,7 +61,7 @@ function AllProducts() {
     queryKey: ["filterstats"],
     queryFn: async () => {
       let result = await axios.get(
-        `http://localhost:3000/products/filter-stats`
+        `https://stylique-backend.vercel.app//products/filter-stats`
       );
 
       return result.data;

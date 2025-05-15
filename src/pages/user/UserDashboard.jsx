@@ -15,7 +15,7 @@ function UserDashboard() {
     queryKey: ["user", user?.email],
     queryFn: async () => {
       let result = await axios.get(
-        `http://localhost:3000/customers/${user?.email}`
+        `https://stylique-backend.vercel.app//customers/${user?.email}`
       );
 
       return result.data;
@@ -30,7 +30,7 @@ function UserDashboard() {
     queryKey: ["order", user?.email],
     queryFn: async () => {
       let result = await axios.get(
-        `http://localhost:3000/checkout/${user?.email}`
+        `https://stylique-backend.vercel.app//checkout/${user?.email}`
       );
 
       return result.data;

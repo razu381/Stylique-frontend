@@ -45,7 +45,7 @@ function CheckoutForm() {
     };
 
     axios
-      .post("http://localhost:3000/checkout", newData)
+      .post("https://stylique-backend.vercel.app//checkout", newData)
       .then((res) => {
         console.log(res.data);
         toast.success("Order completed");
@@ -60,7 +60,7 @@ function CheckoutForm() {
   //store user data
   function storeUserData(data) {
     axios
-      .put("http://localhost:3000/customers", data)
+      .put("https://stylique-backend.vercel.app//customers", data)
       .then((res) => {
         console.log(res.data);
       })
