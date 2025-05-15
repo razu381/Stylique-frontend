@@ -10,53 +10,32 @@ import "react-range-slider-input/dist/style.css";
 
 function AllProducts() {
   let [categoryFilter, setCategoryFilter] = useState("");
-  let [ratingFilter, setRatingFilter] = useState("");
+  let [ratingFilter, setRatingFilter] = useState(0);
   let [priceFilter, setPriceFilter] = useState([0, 1000]);
 
-  //   const {
-  //     register,
-  //     handleSubmit,
-  //     control,
-  //     watch,
-  //     reset,
-  //     formState: { errors },
-  //   } = useForm({
-  //     defaultValues: {
-  //       rating: 0,
-  //     },
-  //   });
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      rating: 0,
+    },
+  });
 
-  //let ratingFilter = watch("rating") || 0;
+  let rating = watch("rating");
+  console.log(rating);
 
-  //   function onSubmit(data) {
-  //     console.log(data);
-  //   }
+  useEffect(() => {
+    setRatingFilter(rating);
+  }, [rating]);
 
-  //   const {
-  //     isLoading,
-  //     error,
-  //     refetch,
-  //     isRefetching,
-  //     data: products = [],
-  //   } = useQuery({
-  //     queryKey: ["allorders", categoryFilter, ratingFilter, priceFilter],
-  //     queryFn: async () => {
-  //       let params = new URLSearchParams();
-
-  //       if (categoryFilter) params.append("category", categoryFilter);
-  //       if (priceFilter && priceFilter[0] > 0)
-  //         params.append("minPrice", priceFilter[0]);
-  //       if (priceFilter && priceFilter[1] > 0)
-  //         params.append("maxPrice", priceFilter[1]);
-  //       if (ratingFilter > 0) params.append("rating", ratingFilter);
-
-  //       let url = `https://stylique-backend.vercel.app/products?${params.toString()}`;
-  //       console.log("Fetching from ", url);
-  //       let result = await axios.get(url);
-
-  //       return result.data;
-  //     },
-  //   });
+  function onSubmit(data) {
+    console.log("RATING ", data);
+  }
 
   const {
     isLoading,
@@ -67,10 +46,10 @@ function AllProducts() {
     queryKey: ["products", categoryFilter, priceFilter, ratingFilter],
     queryFn: async () => {
       let result = await axios.get(
-        `https://stylique-backend.vercel.app/products?category=${categoryFilter}&minPrice=&maxPrice=&rating=`
+        `http://localhost:3000/products?category=${categoryFilter}&minPrice=${priceFilter[0]}&maxPrice=${priceFilter[1]}&rating=${ratingFilter}`
       );
       console.log(
-        `https://stylique-backend.vercel.app/products?category=${categoryFilter}&minPrice=&maxPrice=&rating=`
+        `http://localhost:3000/products?category=${categoryFilter}&minPrice=${priceFilter[0]}&maxPrice=${priceFilter[1]}&rating=${ratingFilter}`
       );
       return result.data;
     },
@@ -81,35 +60,31 @@ function AllProducts() {
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      let result = await axios.get(
-        `https://stylique-backend.vercel.app/categories`
-      );
+      let result = await axios.get(`http://localhost:3000/categories`);
 
       return result.data;
     },
   });
 
-  //   const {
-  //     data: filterstats = {
-  //       price: { min: 0, max: 1000 },
-  //       rating: { min: 0, max: 5 },
-  //     },
-  //   } = useQuery({
-  //     queryKey: ["filterstats"],
-  //     queryFn: async () => {
-  //       let result = await axios.get(
-  //         `https://stylique-backend.vercel.app/products/filter-stats`
-  //       );
-
-  //       return result.data;
-  //     },
-  //   });
-
-  //   console.log("filter stats ", priceFilter);
+  const { data: filterstats = {} } = useQuery({
+    queryKey: ["filterstats"],
+    queryFn: async () => {
+      let result = await axios.get(
+        `http://localhost:3000/products/filter-stats`
+      );
+      console.log("Price result ", [
+        result.data?.price?.min,
+        result.data?.price?.max,
+      ]);
+      setPriceFilter([result.data?.price?.min, result.data?.price?.max]);
+      return result.data;
+    },
+  });
 
   function handleCategoryFilter(e) {
     setCategoryFilter(e.target.value);
   }
+
   return (
     <div className="max-w-full px-5 lg:max-w-[1140px] lg:mx-auto py-10 lg:py-20">
       <p className="mb-5">Home {">"} All Products</p>
@@ -122,7 +97,7 @@ function AllProducts() {
         </p>
       )}
 
-      <div className="pb-5 flex justify-between ">
+      <div className="pb-5 flex justify-between items-center">
         <div className="w-full">
           <select
             onChange={handleCategoryFilter}
@@ -135,17 +110,20 @@ function AllProducts() {
             ))}
           </select>
         </div>
-        {/* <div className="w-full">
+        <div className="w-full">
+          <p className="text-center font-bold pb-1">
+            ${priceFilter[0]} - ${priceFilter[1]}
+          </p>
           <RangeSlider
-            min={filterstats?.price?.min}
-            max={filterstats?.price?.max}
-            // defaultValue={[0, 5]}
+            min={priceFilter[0]}
+            max={priceFilter[1]}
+            defaultValue={[priceFilter[0], priceFilter[1]]}
             onInput={setPriceFilter}
           />
         </div>
-        <div className="w-full">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="mx-[20%]">
+        <div className="w-full flex flex-col justify-center items-center">
+          <form className="space-y-4 max-w-[250px]">
+            <div className="">
               <Controller
                 control={control}
                 name="rating"
@@ -165,7 +143,7 @@ function AllProducts() {
               {errors.rating && <div>Rating is required.</div>}
             </div>
           </form>
-        </div> */}
+        </div>
       </div>
       {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

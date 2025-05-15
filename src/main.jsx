@@ -44,7 +44,7 @@ let router = createBrowserRouter([
         path: "/products/:id",
         element: <SingleProduct />,
         loader: ({ params }) =>
-          fetch(`https://stylique-backend.vercel.app/products/${params.id}`),
+          fetch(`http://localhost:3000/products/${params.id}`),
       },
       {
         path: "/all-products",

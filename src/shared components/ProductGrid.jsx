@@ -15,7 +15,7 @@ function ProductGrid({ title, category }) {
     queryKey: ["categoryProducts", category],
     queryFn: async () => {
       let result = await axios.get(
-        `https://stylique-backend.vercel.app/products/category/${category}`
+        `http://localhost:3000/products/category/${category}`
       );
 
       return result.data;
