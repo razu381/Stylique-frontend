@@ -7,7 +7,7 @@ function ProductGrid({ title, category }) {
 
   useEffect(() => {
     axios
-      .get(`https://stylique-backend.vercel.app//products/category/${category}`)
+      .get(`https://stylique-backend.vercel.app/products/category/${category}`)
       .then((res) => setProducts(res.data))
       .catch((err) => console.log(err));
   }, []);

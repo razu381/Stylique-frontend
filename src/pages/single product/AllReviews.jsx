@@ -15,7 +15,7 @@ function AllReviews({ _id }) {
     queryKey: ["review", _id],
     queryFn: async () => {
       let result = await axios.get(
-        `https://stylique-backend.vercel.app//reviews/${_id}`
+        `https://stylique-backend.vercel.app/reviews/${_id}`
       );
 
       return result.data;

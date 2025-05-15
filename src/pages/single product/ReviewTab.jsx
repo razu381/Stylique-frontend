@@ -26,7 +26,7 @@ function ReviewTab({ _id }) {
 
   async function onSubmit(data) {
     let res = await axios.post(
-      `https://stylique-backend.vercel.app//reviews`,
+      `https://stylique-backend.vercel.app/reviews`,
       data
     );
     if (res.data.insertedId) {
