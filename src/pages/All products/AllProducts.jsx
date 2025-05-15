@@ -30,6 +30,7 @@ function AllProducts() {
   function onSubmit(data) {
     console.log(data);
   }
+
   const {
     isLoading,
     error,
