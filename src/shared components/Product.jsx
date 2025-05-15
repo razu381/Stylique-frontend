@@ -6,7 +6,7 @@ function Product({ productInfo }) {
   let { _id, name, image, rating, price } = productInfo;
 
   return (
-    <Link to={`http://localhost:5173/products/${_id}`} className="space-y-2">
+    <Link to={`/products/${_id}`} className="space-y-2">
       <img src={image} alt={name} className="rounded-3xl" />
       <h3 className="stylique-manrope font-bold text-xl">{name}</h3>
       <div className="flex justify-start items-center gap-5">
