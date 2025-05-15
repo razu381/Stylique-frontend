@@ -1,5 +1,7 @@
 #Live link
 https://styliqueecommerce.netlify.app/
+
+#server
 https://stylique-backend.vercel.app/
 
 #Intro
