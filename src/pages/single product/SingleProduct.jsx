@@ -11,7 +11,7 @@ function SingleProduct() {
   let { cartItems, addToCart, updateCart } = useContext(CartContext);
   let [itemAmount, setItemAmount] = useState(1);
 
-  let { _id, name, image, rating, price, description } = productData;
+  let { _id, name, image, rating, category, price, description } = productData;
   //console.log(productData);
 
   function handleIncrease() {
@@ -37,6 +37,8 @@ function SingleProduct() {
         productId: _id,
         image,
         price,
+        rating,
+        category,
       };
 
       addToCart(data);

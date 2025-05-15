@@ -112,7 +112,7 @@ function Header() {
             </div>
           </div>
         </div>
-        <Link to="/user">
+        <Link to="/my-account">
           <FaRegUserCircle size={25} />
         </Link>
       </div>

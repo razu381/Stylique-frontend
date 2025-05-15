@@ -33,7 +33,6 @@ function Signup() {
       .catch((err) => {
         console.log(err);
         toast.error("There's been an error, please check console for details");
-        toast.error(err.message);
       });
   };
 

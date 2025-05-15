@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 function Cart() {
   let { cartItems, addToCart, removeFromCart, clearCart } =
     useContext(CartContext);
+  console.log(cartItems);
 
   return (
     <section className="max-w-full px-5 lg:max-w-[1140px] lg:mx-auto py-10 lg:py-20">
@@ -32,18 +33,18 @@ function Cart() {
                     <tr>
                       <td>
                         <img
-                          src={item.image}
-                          alt={item.name}
+                          src={item?.image}
+                          alt={item?.name}
                           className="max-w-[98px] lg:max-w[124px] rounded-xl"
                         />
                       </td>
                       <td className="space-y-1">
-                        <p className="font-bold lg:text-xl">{item.name}</p>
+                        <p className="font-bold lg:text-xl">{item?.name}</p>
                         <p className="text-black/60">
-                          <b>Rating: </b> {item.rating}
+                          <b>Rating: </b> {item?.rating}
                         </p>
                         <p className="text-black/60">
-                          <b>Category: </b> {item.category}
+                          <b>Category: </b> {item?.category}
                         </p>
                         <p className="font-bold text-lg lg:text-lg">
                           $ {item.price}
@@ -51,7 +52,7 @@ function Cart() {
                       </td>
                       <td>
                         <MdDelete
-                          onClick={() => removeFromCart(item.cartItemId)}
+                          onClick={() => removeFromCart(item?.cartItemId)}
                           size={30}
                           color="red"
                         />

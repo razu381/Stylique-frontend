@@ -3,9 +3,10 @@ import { AuthContext } from "../../Auth/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import OrderedProducts from "../checkout/OrderedProducts";
+import { toast } from "react-toastify";
 
 function UserDashboard() {
-  let { user } = useContext(AuthContext);
+  let { user, LogOut } = useContext(AuthContext);
 
   const {
     isLoading: customerLoading,
@@ -39,13 +40,34 @@ function UserDashboard() {
 
   console.log(orders);
 
+  function handleLogout() {
+    LogOut()
+      .then(() => {
+        toast.success("Logged out successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
+
   return (
     <div className="max-w-full px-5 lg:max-w-[1140px] lg:mx-auto py-10 lg:py-20">
-      <p className="mb-5">Home {">"} My account</p>
-      <h2 className="font-bold text-3xl lg:text-4xl">My account</h2>
+      <div className="flex justify-between">
+        <div>
+          <p className="mb-5">Home {">"} My account</p>
+          <h2 className="font-bold text-3xl lg:text-4xl">My account</h2>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="btn bg-black text-white px-5 md:px-10"
+        >
+          Logout
+        </button>
+      </div>
+
       <div className="flex flex-col md:flex-row gap-5 lg:gap-10 ">
         <div className="flex-1 border border-black/10 py-10  px-5 rounded-[20px] mt-5">
-          <div className="overflow-x-auto">
+          <div className="-mt-8 overflow-x-auto">
             <table className="table table-zebra">
               {/* head */}
               <thead></thead>

@@ -12,7 +12,7 @@ function ProductGrid({ title, category }) {
     isRefetching,
     data: products = [],
   } = useQuery({
-    queryKey: ["categoryProducts", category, title],
+    queryKey: ["categoryProducts", category],
     queryFn: async () => {
       let result = await axios.get(
         `https://stylique-backend.vercel.app/products/category/${category}`
@@ -31,7 +31,7 @@ function ProductGrid({ title, category }) {
       {(isLoading || isRefetching) && <Spinner />}
       {error && (
         <p className="text-red-600 text-center">
-          `There's been an error loading products. ${error}`
+          `There's been an error loading products. ${error.message}`
         </p>
       )}
 
