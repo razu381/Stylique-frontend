@@ -17,10 +17,10 @@ function Checkout() {
 
       {cartItems.length !== 0 ? (
         <div className="grid grid-cols-3 gap-5 lg:gap-10 w-full">
-          <div className="col-span-3 lg:col-span-2 border border-black/10 py-10 px-5 rounded-[20px] mt-5">
+          <div className="order-2 lg:order-1 col-span-3 lg:col-span-2 border border-black/10 py-10 px-5 rounded-[20px] mt-5">
             <CheckoutForm />
           </div>
-          <div className="col-span-3 lg:col-span-1 border border-black/10 py-10 px-5 rounded-[20px] mt-5">
+          <div className="order-1 lg:order-2 col-span-3 lg:col-span-1 border border-black/10 py-10 px-5 rounded-[20px] mt-5">
             <div className="mb-10">
               <OrderedProducts cartItems={cartItems} />
             </div>

@@ -41,7 +41,7 @@ function Cart() {
                       <td className="space-y-1">
                         <p className="font-bold lg:text-xl">{item?.name}</p>
                         <p className="text-black/60">
-                          <b>Rating: </b> {item?.rating}
+                          <b>Quantity: </b> {item?.count}
                         </p>
                         <p className="text-black/60">
                           <b>Category: </b> {item?.category}
@@ -64,7 +64,7 @@ function Cart() {
             </div>
             <button
               onClick={clearCart}
-              className=" bg-black text-white text-center py-2 px-5 mt-5 rounded-[20px]"
+              className=" bg-black text-white text-center py-2 px-5 mt-5 rounded-[20px] mb-5"
             >
               Clear Cart
             </button>

@@ -1,13 +1,16 @@
 import { Rating } from "@smastrom/react-rating";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import ReviewTab from "./ReviewTab";
 import AllReviews from "./AllReviews";
 import { useContext, useState } from "react";
 import { CartContext } from "../cart/CartProvider";
 import { toast } from "react-toastify";
+import Spinner from "../../shared components/Spinner";
 
 function SingleProduct() {
   let productData = useLoaderData();
+  let navigation = useNavigation();
+
   let { cartItems, addToCart, updateCart } = useContext(CartContext);
   let [itemAmount, setItemAmount] = useState(1);
 
@@ -46,6 +49,8 @@ function SingleProduct() {
     }
     toast.success(`${name} added to cart successfully`);
   }
+
+  if (navigation.state === "loading") return <Spinner />;
 
   return (
     <div className="max-w-full px-5 lg:max-w-[1140px] lg:mx-auto">
@@ -97,7 +102,7 @@ function SingleProduct() {
             </div>
             <button
               onClick={handleAddToCart}
-              className="col-span-2 w-full lg:w-fit py-2 px-20 bg-black text-white font-medium rounded-full hover:bg-transparent hover:border hover:border-black hover:text-black"
+              className="col-span-2 w-full lg:w-fit py-2 px-10 lg:px-20 bg-black text-white font-medium rounded-full hover:bg-transparent hover:border hover:border-black hover:text-black"
             >
               Add to cart
             </button>
