@@ -12,6 +12,7 @@ function AllProducts() {
   let [categoryFilter, setCategoryFilter] = useState("");
   let [ratingFilter, setRatingFilter] = useState(0);
   let [priceFilter, setPriceFilter] = useState([0, 1000]);
+  let [searchFilter, setSearchFilter] = useState("");
 
   const {
     register,
@@ -43,13 +44,19 @@ function AllProducts() {
     isRefetching,
     data: products = [],
   } = useQuery({
-    queryKey: ["products", categoryFilter, priceFilter, ratingFilter],
+    queryKey: [
+      "products",
+      categoryFilter,
+      priceFilter,
+      ratingFilter,
+      searchFilter,
+    ],
     queryFn: async () => {
       let result = await axios.get(
-        `http://localhost:3000/products?category=${categoryFilter}&minPrice=${priceFilter[0]}&maxPrice=${priceFilter[1]}&rating=${ratingFilter}`
+        `https://stylique-backend.vercel.app?category=${categoryFilter}&minPrice=${priceFilter[0]}&maxPrice=${priceFilter[1]}&rating=${ratingFilter}&search=${searchFilter}`
       );
       console.log(
-        `http://localhost:3000/products?category=${categoryFilter}&minPrice=${priceFilter[0]}&maxPrice=${priceFilter[1]}&rating=${ratingFilter}`
+        `https://stylique-backend.vercel.app?category=${categoryFilter}&minPrice=${priceFilter[0]}&maxPrice=${priceFilter[1]}&rating=${ratingFilter}`
       );
       return result.data;
     },
@@ -70,7 +77,7 @@ function AllProducts() {
     queryKey: ["filterstats"],
     queryFn: async () => {
       let result = await axios.get(
-        `http://localhost:3000/products/filter-stats`
+        `https://stylique-backend.vercel.app/filter-stats`
       );
       console.log("Price result ", [
         result.data?.price?.min,
@@ -83,6 +90,14 @@ function AllProducts() {
 
   function handleCategoryFilter(e) {
     setCategoryFilter(e.target.value);
+  }
+  function handleSearch(e) {
+    let keyword = e.target.value;
+    console.log(keyword);
+    if (keyword.length >= 3) {
+      console.log(keyword);
+      setSearchFilter(keyword);
+    }
   }
 
   return (
@@ -97,7 +112,7 @@ function AllProducts() {
         </p>
       )}
 
-      <div className="pb-5 flex justify-between items-center">
+      <div className="pb-5 flex justify-between items-center gap-5">
         <div className="w-full">
           <select
             onChange={handleCategoryFilter}
@@ -110,7 +125,7 @@ function AllProducts() {
             ))}
           </select>
         </div>
-        <div className="w-full">
+        <div className="w-full -mt-5">
           <p className="text-center font-bold pb-1">
             ${priceFilter[0]} - ${priceFilter[1]}
           </p>
@@ -121,7 +136,7 @@ function AllProducts() {
             onInput={setPriceFilter}
           />
         </div>
-        <div className="w-full flex flex-col justify-center items-center">
+        <div className="w-full -mt-2 flex flex-col justify-center items-center">
           <form className="space-y-4 max-w-[250px]">
             <div className="">
               <Controller
@@ -143,6 +158,14 @@ function AllProducts() {
               {errors.rating && <div>Rating is required.</div>}
             </div>
           </form>
+        </div>
+        <div className="w-full">
+          <input
+            onChange={handleSearch}
+            type="text"
+            placeholder="Search here... min 3 character"
+            className="input"
+          />
         </div>
       </div>
       {
