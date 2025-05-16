@@ -107,13 +107,6 @@ function AllProducts() {
       <p className="mb-5">Home {">"} All Products</p>
       <h2 className="font-bold text-3xl lg:text-4xl mb-10">All Produts</h2>
 
-      {(isLoading || isRefetching) && <Spinner />}
-      {error && (
-        <p className="text-red-600 text-center">
-          `There's been an error loading products. ${error.message}`
-        </p>
-      )}
-
       <div className="pb-5 flex justify-between items-center gap-5">
         <div className="w-full">
           <select
@@ -170,6 +163,13 @@ function AllProducts() {
           />
         </div>
       </div>
+      {(isLoading || isRefetching) && <Spinner />}
+
+      {error && (
+        <p className="text-red-600 text-center">
+          `There's been an error loading products.{error.message}`
+        </p>
+      )}
       {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((product) => (

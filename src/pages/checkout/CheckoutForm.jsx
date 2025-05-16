@@ -3,11 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CartContext } from "../cart/CartProvider";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function CheckoutForm() {
   let { cartItems, clearCart, idempotencyKey, resetidempotencyKey } =
     useContext(CartContext);
   let [states, setStates] = useState([]);
+  let navigate = useNavigate();
 
   const {
     register,
@@ -49,7 +51,6 @@ function CheckoutForm() {
       .then((res) => {
         console.log(res.data);
         toast.success("Order completed");
-        clearCart();
       })
       .catch((err) => {
         console.log(err);
@@ -63,6 +64,8 @@ function CheckoutForm() {
       .put("https://stylique-backend.vercel.app/customers", data)
       .then((res) => {
         console.log(res.data);
+        navigate("/my-account");
+        clearCart();
       })
       .catch((err) => console.log(err));
   }
