@@ -2,7 +2,7 @@
 https://styliqueecommerce.netlify.app/
 
 #server
-http://localhost:3000/
+https://stylique-backend.vercel.app/
 
 #Intro
 part-1:
