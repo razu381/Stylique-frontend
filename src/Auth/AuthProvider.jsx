@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import axios from "axios";
 
 export let AuthContext = createContext();
 
@@ -43,6 +44,21 @@ function AuthProvider({ children }) {
     let unsubscribe = onAuthStateChanged(auth, (CurrUser) => {
       setUser(CurrUser);
       setLoading(false);
+      if (CurrUser?.email) {
+        axios
+          .post(
+            "https://stylique-backend.vercel.app/jwt",
+            { email: CurrUser?.email },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            setLoading(false);
+          })
+          .catch((err) => console.log(err));
+      }
     });
 
     return () => {

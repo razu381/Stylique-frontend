@@ -31,7 +31,10 @@ function UserDashboard() {
     queryKey: ["order", user?.email],
     queryFn: async () => {
       let result = await axios.get(
-        `https://stylique-backend.vercel.app/checkout/${user?.email}`
+        `https://stylique-backend.vercel.app/checkout/${user?.email}`,
+        {
+          withCredentials: true,
+        }
       );
 
       return result.data;
@@ -44,6 +47,16 @@ function UserDashboard() {
     LogOut()
       .then(() => {
         toast.success("Logged out successfully");
+        axios
+          .post(
+            "https://stylique-backend.vercel.app/deleteCookieOnLogOut",
+            {},
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         toast.error(error.message);
