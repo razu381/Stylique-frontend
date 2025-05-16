@@ -16,7 +16,10 @@ function UserDashboard() {
     queryKey: ["user", user?.email],
     queryFn: async () => {
       let result = await axios.get(
-        `https://stylique-backend.vercel.app/customers/${user?.email}`
+        `https://stylique-backend.vercel.app/customers/${user?.email}`,
+        {
+          withCredentials: true,
+        }
       );
 
       return result.data;
