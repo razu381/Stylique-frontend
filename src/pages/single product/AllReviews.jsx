@@ -25,11 +25,17 @@ function AllReviews({ _id }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {reviews.map((userReview) => (
-          <Review userReview={userReview} />
-        ))}
-      </div>
+      {reviews.length === 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {reviews.map((userReview) => (
+            <Review userReview={userReview} />
+          ))}
+        </div>
+      ) : (
+        <p className="font-bold text-2xl py-10">
+          There's no review for this product
+        </p>
+      )}
     </div>
   );
 }
